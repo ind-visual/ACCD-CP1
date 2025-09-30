@@ -53,6 +53,7 @@
             
             .container a {
                 text-decoration: none;
+                font-weight: bold;
                 color: black;
             }
 
@@ -85,35 +86,64 @@
                 margin: 5;
                 font-style: italic;
             }
+        }
 
-            @media (min-width:900px) {
-                body {
-                    background-color:salmon ;
-                }
+        @media (min-width:900px) {
+            body {
+                background-color: salmon;
             }
 
             .container a {
-                font-weight: ;
+                font-weight: lighter;
+                color: antiquewhite;
             }
 
             .container {
                 justify-content: space-between;
-                margin-top: 25px;
+                margin: 200px;
+                padding: 20px;
             }
 
             .box-cat {
+                padding-top: 80px;
                 flex: 1;
+                background-color: black;
+                border: 6px solid aqua;
             }
 
             .box-dog {
+                padding-bottom: 80px;
                 flex: 1;
+                background-color: black;
+                border: 6px solid rgb(144, 125, 238);
+                border-radius: 12px;
             }
 
             .box-bird {
+                padding-top: 80px;
                 flex: 1;
-                border-radius: 44px;
-                border: 2px solid rgb(1, 255, 73);
+                background-color: black;
+                border: 6px solid rgb(212, 255, 0);
+                border-radius: 12px;
+            }
 
+            .box-cat a {
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                color: aqua;
+                text-transform: lowercase;
+            }
+
+            .box-dog a {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                color: rgb(144, 125, 238);
+                text-transform: uppercase;
+            }
+
+            .box-bird a {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                color: rgb(212, 255, 0);
+                text-transform: lowercase;
+                font-style: oblique;
             }
         }
     </style>
