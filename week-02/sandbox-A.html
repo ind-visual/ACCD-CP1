@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Default: Mobile first */
+    body {
+      background-color: lightblue;
+      font-family: sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column; /* Stack items on top (mobile) */
+      gap: 10px;
+    }
+
+    .box {
+      background-color: white;
+      padding: 20px;
+      border: 2px solid black;
+    }
+
+    /* Tablet breakpoint (600px or wider) */
+    @media (min-width: 600px) {
+      body {
+        background-color: lightgreen;
+      }
+
+      .container {
+        flex-direction: row; /* Put items side by side */
+        justify-content: space-around;
+      }
+    }
+
+    /* Desktop breakpoint (900px or wider) */
+    @media (min-width: 900px) {
+      body {
+        background-color: lightcoral;
+      }
+
+      .container {
+        justify-content: space-between; /* Spread items apart */
+      }
+
+      .box {
+        flex: 1; /* Make boxes grow to fill space evenly */
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Responsive Flexbox Page</h1>
+  <div class="container">
+    <div class="box">🐱 Meow</div>
+    <div class="box">🐶 Woof</div>
+    <div class="box">🦜 Chirp</div>
+  </div>
+</body>
+</html>

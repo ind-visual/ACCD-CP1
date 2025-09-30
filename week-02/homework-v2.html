@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2 Assignment: Responsive CSS</title>
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 36px;
+        }
+
+        .container a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.25rem;
+            gap: 20px;
+        }
+
+        .box-cat {
+            background-color: bisque;
+            padding: 20px;
+            gap: 20px;
+            border: 2px solid black;
+        }
+
+        .box-dog {
+            background-color:lavender;
+            padding: 20px;
+            gap: 20px;
+            border: 2px solid black;
+        }
+
+        .box-bird {
+            background-color:aquamarine;
+            padding: 20px;
+            gap: 20px;
+            border: 2px solid black;
+        }
+
+        @media (min-width:600px) {
+            body {
+                background-color: lightgreen;
+            }
+            
+            .container a {
+                text-decoration: none;
+                color: black;
+            }
+
+            .container {
+                flex-direction: row;
+                justify-content: space-around;
+                font-size: 1.5rem;
+            }
+
+            .box-cat {
+                background-color:lavender;
+                font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                border: 3px dotted rgb(245, 34, 220);
+                border-radius: 24px;
+            }
+
+            .box-dog {
+                background-color:rgb(231, 124, 255);
+                font-family:monospace;
+                border: 2px solid rgb(255, 255, 255);
+            }
+
+            .box-bird {
+                background-color:rgb(122, 116, 226);
+                font-family:'Courier New', Courier, monospace;
+                border-radius: 20px;
+            }
+
+            .box-bird a {
+                margin: 5;
+                font-style: italic;
+            }
+
+            @media (min-width:900px) {
+                body {
+                    background-color:salmon ;
+                }
+            }
+
+            .container a {
+                font-weight: ;
+            }
+
+            .container {
+                justify-content: space-between;
+                margin-top: 25px;
+            }
+
+            .box-cat {
+                flex: 1;
+            }
+
+            .box-dog {
+                flex: 1;
+            }
+
+            .box-bird {
+                flex: 1;
+                border-radius: 44px;
+                border: 2px solid rgb(1, 255, 73);
+
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Resize Me, I'm Responsive!</h1>
+        <div class="container">
+            <div class="box-cat"><a href="something">🐱 Meow</a></div>
+            <div class="box-dog"><a href="something">🐶 Woof</a></div>
+            <div class="box-bird"><a href="something">🦜 Squawk</a></div>
+        </div>
+</body>
+</html>

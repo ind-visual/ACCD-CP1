@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive example</title>
+    <style> 
+        body {
+            margin: 0; 
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header, 
+        footer {
+            background-color: rgb(100, 200, 255)
+        }
+
+        nav ul {
+            margin-top: 0;
+            margin-bottom: 0;
+               padding: 20px; 
+               list-style: none;
+               text-align: center;
+        }
+
+        nav ul li {
+            margin: 10px auto 10px auto;
+            border-bottom: 2px solid black;
+            padding-bottom: 8px;
+        }
+
+        .active {
+            font-weight: bold;
+        }
+
+        nav ul li:last-child {
+            border-bottom: none;
+        }
+
+         nav ul a {
+            text-decoration: none;
+            color: black;
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 768px) {
+            nav ul {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+            }
+        }
+
+        nav ul li {
+            border-bottom: none;
+            margin: 10px;
+        }
+
+    </style>
+    </body>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="somelinkhere">Home</a></li>
+                <li class="active"><a href="somelinkhere">Work</a></li>
+                <li><a href="somelinkhere">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main></main>
+    <footer></footer>
+</body>
+</html>
