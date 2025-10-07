@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color:linen;
+}
+
+.thumbnail-row {
+    margin: 20px;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    gap: 50px;
+}
+
+#heroImage {
+    height: 500px;
+    margin: 20px;
+}

@@ -1,0 +1,224 @@
+JAVASCRIPT HW:
+
+*Option A
+
+// 1️⃣ Get the main hero image element
+const hImage = document.getElementById("heroImage")
+
+// 2️⃣ Get each thumbnail by its ID
+const aThumb = document.getElementById("thumbnail-3")
+const bThumb = document.getElementById("thumbnail-4")
+const cThumb = document.getElementById("thumbnail-5")
+const dThumb = document.getElementById("thumbnail-6")
+
+// 3️⃣ Define a reusable function that changes the hero image source
+function changeHeroImage(newSrc) {
+  hImage.src = newSrc
+}
+
+// 4️⃣ Add click listeners so each thumbnail changes to its matching hero image
+aThumb.addEventListener("click", () => changeHeroImage("images/summer25-03-a-dam.jpg"))
+bThumb.addEventListener("click", () => changeHeroImage("images/summer25-04-a-dam.jpg"))
+cThumb.addEventListener("click", () => changeHeroImage("images/summer25-05-molly.jpg"))
+dThumb.addEventListener("click", () => changeHeroImage("images/summer25-06-paris.jpg"))
+
+////////
+
+*Option B
+
+// 1️⃣ Get the main hero image
+const hImage = document.getElementById("heroImage")
+
+// 2️⃣ Select *all* thumbnails that share the same class
+const thumbnails = document.querySelectorAll(".thumbnail")
+
+// 3️⃣ Loop through each thumbnail
+thumbnails.forEach((thumb) => {
+  thumb.addEventListener("click", () => {
+    // 4️⃣ Build the corresponding hero image path
+    // Removes "-Thumb" from filename to get the full image name
+    const newSrc = thumb.src.replace("-Thumb", "")
+    // 5️⃣ Update hero image
+    hImage.src = newSrc
+  })
+})
+
+<img src="images/summer25-03-a-dam-Thumb.jpg" id="thumbnail-3" class="thumbnail">
+<img src="images/summer25-04-a-dam-Thumb.jpg" id="thumbnail-4" class="thumbnail">
+<img src="images/summer25-05-molly-Thumb.jpg" id="thumbnail-5" class="thumbnail">
+<img src="images/summer25-06-paris-Thumb.jpg" id="thumbnail-6" class="thumbnail">
+
+
+
+*Option C
+
+// 1️⃣ Get all key elements
+const hImage = document.getElementById("heroImage");
+const thumbnails = document.querySelectorAll(".thumbnail");
+const playBtn = document.getElementById("playSlideshow");
+const pauseBtn = document.getElementById("pauseSlideshow");
+
+// 2️⃣ Store all hero image paths that match your thumbnails
+const heroImages = [
+  "images/summer25-03-a-dam.jpg",
+  "images/summer25-04-a-dam.jpg",
+  "images/summer25-05-molly.jpg",
+  "images/summer25-06-paris.jpg"
+];
+
+// 3️⃣ Start on the first image
+let currentIndex = 0;
+let slideshowInterval = null;
+
+// 4️⃣ Function: change hero image
+function showImage(index) {
+  hImage.src = heroImages[index];
+}
+
+// 5️⃣ Function: start the slideshow
+function startSlideshow() {
+  // Avoid duplicate intervals
+  if (slideshowInterval) return;
+
+  slideshowInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % heroImages.length;
+    showImage(currentIndex);
+  }, 3000); // every 3 seconds
+}
+
+// 6️⃣ Function: stop the slideshow
+function pauseSlideshow() {
+  clearInterval(slideshowInterval);
+  slideshowInterval = null;
+}
+
+// 7️⃣ Thumbnail click behavior
+thumbnails.forEach((thumb, index) => {
+  thumb.addEventListener("click", () => {
+    currentIndex = index;      // match clicked thumbnail
+    showImage(currentIndex);   // update hero image immediately
+    pauseSlideshow();          // pause slideshow so user can view their choice
+  });
+});
+
+// 8️⃣ Button controls
+playBtn.addEventListener("click", startSlideshow);
+pauseBtn.addEventListener("click", pauseSlideshow);
+
+// 9️⃣ Start automatically on page load
+startSlideshow();
+
+////////////////////////////////////////////////////
+
+*Play Pause Option A
+
+// 🔹 1. Get buttons
+let playButton = document.getElementById("playSlideshow")
+let pauseButton = document.getElementById("pauseSlideshow")
+
+// 🔹 2. Get hero image and thumbnails
+const hImage = document.getElementById("heroImage")
+const aThumb = document.getElementById("thumbnail-3")
+const bThumb = document.getElementById("thumbnail-4")
+const cThumb = document.getElementById("thumbnail-5")
+const dThumb = document.getElementById("thumbnail-6")
+
+// 🔹 3. Array of image sources (in order)
+const heroImages = [
+  "images/summer25-03-a-dam.jpg",
+  "images/summer25-04-a-dam.jpg",
+  "images/summer25-05-molly.jpg",
+  "images/summer25-06-paris.jpg"
+]
+
+// 🔹 4. Track which image we’re on
+let currentIndex = 0
+
+// 🔹 5. Function to change hero image
+function changeHeroImage(newSrc) {
+  hImage.src = newSrc
+}
+
+// 🔹 6. Function to switch to the next image in sequence
+function toggleImage() {
+  currentIndex = (currentIndex + 1) % heroImages.length // loops back to 0
+  changeHeroImage(heroImages[currentIndex])
+}
+
+// 🔹 7. Set up an interval for automatic image switching
+let slideshowInterval = setInterval(toggleImage, 2000) // every 2 seconds
+
+// 🔹 8. Functions to pause and resume the slideshow
+function pauseSlideshow() {
+  clearInterval(slideshowInterval)
+}
+
+function playSlideshow() {
+  pauseSlideshow() // prevent multiple intervals stacking
+  slideshowInterval = setInterval(toggleImage, 2000)
+}
+
+// 🔹 9. Button controls for play/pause
+pauseButton.addEventListener("click", pauseSlideshow)
+playButton.addEventListener("click", playSlideshow)
+
+// 🔹 10. Thumbnail click events (manual image change)
+aThumb.addEventListener("click", () => {
+  changeHeroImage(heroImages[0])
+  currentIndex = 0
+  pauseSlideshow() // pause when manually changed
+})
+bThumb.addEventListener("click", () => {
+  changeHeroImage(heroImages[1])
+  currentIndex = 1
+  pauseSlideshow()
+})
+cThumb.addEventListener("click", () => {
+  changeHeroImage(heroImages[2])
+  currentIndex = 2
+  pauseSlideshow()
+})
+dThumb.addEventListener("click", () => {
+  changeHeroImage(heroImages[3])
+  currentIndex = 3
+  pauseSlideshow()
+})
+
+
+
+//////////////// original hw with slideshow, no pause play
+
+let playButton = document.getElementById("playSlideshow")
+let pauseButton = document.getElementById("pauseSlideshow")
+
+const hImage = document.getElementById("heroImage")
+const aThumb = document.getElementById("thumbnail-3")
+const bThumb = document.getElementById("thumbnail-4")
+const cThumb = document.getElementById("thumbnail-5")
+const dThumb = document.getElementById("thumbnail-6")
+
+function changeHeroImage(newSrc) {
+  hImage.src = newSrc
+}
+
+let toggleImage = () => 
+{
+  console.log(hImage.src)
+  if(hImage.src.includes("summer25-03")) {
+    hImage.src = "images/summer25-04-a-dam.jpg"
+    hImage.src = "images/summer25-05-molly.jpg"
+    hImage.src = "images/summer25-06-paris.jpg"
+  }
+  else {
+    hImage.src = "images/summer25-03-a-dam.jpg"
+  }
+}
+
+setInterval(toggleImage, 1350)
+
+aThumb.addEventListener("click", () => changeHeroImage("images/summer25-03-a-dam.jpg"))
+bThumb.addEventListener("click", () => changeHeroImage("images/summer25-04-a-dam.jpg"))
+cThumb.addEventListener("click", () => changeHeroImage("images/summer25-05-molly.jpg"))
+dThumb.addEventListener("click", () => changeHeroImage("images/summer25-06-paris.jpg"))
+
+//////////////
