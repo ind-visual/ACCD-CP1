@@ -7,12 +7,13 @@
 
 body {
   font-family: 'Helvetica Neue', sans-serif;
-  background: linen;
+  background: #f8f8f8;
   color: #222;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  background-color: linen;
 }
 
 header {

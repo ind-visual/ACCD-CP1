@@ -7,7 +7,7 @@ const prevBtn = document.querySelector('.prev');
 const images = Array.from(document.querySelectorAll('.gallery-item img'));
 let currentIndex = 0;
 
-// Open lightbox
+//Open lightbox
 images.forEach((img, index) => {
   img.addEventListener('click', () => {
     currentIndex = index;
@@ -16,12 +16,11 @@ images.forEach((img, index) => {
   });
 });
 
-// Close
 closeBtn.addEventListener('click', () => {
   lightbox.style.display = 'none';
 });
 
-// Next / Prev
+//Next + Previouos
 nextBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   currentIndex = (currentIndex + 1) % images.length;
@@ -34,7 +33,8 @@ prevBtn.addEventListener('click', (e) => {
   showImage(currentIndex);
 });
 
-// Close when clicking background
+
+//Close when clicking background
 lightbox.addEventListener('click', (e) => {
   if (e.target === lightbox) lightbox.style.display = 'none';
 });
