@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Documentation – Christina Lee</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Dashboard Documentation</h1>
+    <p>Process, references, and final results</p>
+  </header>
+
+  <!-- Intro Section -->
+  <section class="intro">
+    <div class="intro-content">
+      <h2>Project Overview</h2>
+      <p>
+        This page documents a 3D prototype for the Nest Thermostat Energy Dashboard using <strong>Blender</strong>. The process includes initial sketches, digital renders, motion studies, and final high-fidelity compositions. Each stage was documented to show the evolution of the concept to balance form, function, and final prototype renders.
+      </p>
+      <p class="tools">
+        <strong>Tools & Software:</strong> Figma, Blender, Photoshop, After Effects
+      </p>
+    </div>
+  </section>
+
+<!-- Final Result -->
+<section id="final" class="section">
+  <h2>Final Result</h2>
+  <div class="grid">
+    <figure class="card" data-type="image" data-src="images/final_01.png">
+      <img src="images/final_01.png" alt="Final render angle A" loading="lazy" />
+      <figcaption>Final Render – Angle A</figcaption>
+    </figure>
+
+    <figure class="card" data-type="image" data-src="images/final_02.png">
+      <img src="images/final_02.png" alt="Final render angle B" loading="lazy" />
+      <figcaption>Final Render – Angle B</figcaption>
+    </figure>
+
+    <figure class="card" data-type="image" data-src="images/final_03.png">
+      <img src="images/final_03.png" alt="Final render angle C" loading="lazy" />
+      <figcaption>Final Render – Angle C</figcaption>
+    </figure>
+  </div>
+</section>
+
+  <!-- Process Gallery -->
+  <section id="process" class="section">
+    <h2>Process Gallery</h2>
+    <div class="grid">
+      <figure class="card" data-type="image" data-src="images/process_sketch_01.png">
+        <img src="images/process_sketch_01.png" alt="Initial sketch exploration" loading="lazy" />
+        <figcaption>Initial Sketch Exploration</figcaption>
+      </figure>
+
+      <figure class="card" data-type="image" data-src="images/process_render_02.png">
+        <img src="images/process_render_02.png" alt="Material study render" loading="lazy" />
+        <figcaption>Material Study: Matte vs Gloss</figcaption>
+      </figure>
+
+      <figure class="card" data-type="image" data-src="images/screencap_01.png">
+        <img src="images/screencap_01.png" alt="Screen capture of layout test" loading="lazy" />
+        <figcaption>Layout Test in Tool</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section id="videos" class="section">
+    <h2>Video Renders and Screen Captures</h2>
+    <div class="grid">
+      <figure class="card video" data-type="video" data-youtube="https://youtu.be/PlOK4QPw6nc?si=3GlMTdPN9ftOnYT_">
+        <div class="thumb">
+          <img alt="Video thumbnail 1" loading="lazy" />
+          <span class="play">&#9658;</span>
+        </div>
+        <figcaption>Turntable Motion Test</figcaption>
+      </figure>
+
+      <figure class="card video" data-type="video" data-youtube="https://youtu.be/G5zpAlL2ZUs">
+        <div class="thumb">
+          <img alt="Video thumbnail 2" loading="lazy" />
+          <span class="play">&#9658;</span>
+        </div>
+        <figcaption>Final Fly through</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Resources -->
+  <section id="resources" class="section">
+    <h2>References and Resources</h2>
+    <ul class="resources">
+      <li>
+        <span class="label">Tutorial</span>
+        <a href="https://www.youtube.com/watch?v=fZSD7pVIUkY" target="_blank" rel="noopener">Blender 2.8 Beginner Textures and Materials Tutorial</a>
+      </li>
+      <li>
+        <span class="label">3rd Party Model</span>
+        <a href="https://sketchfab.com/3d-models/iphone-15-pro-max-5b7b35513a154ac69619dc2b2fe15686" target="_blank" rel="noopener">iPhone 15 Pro Max</a>
+      </li>
+      <li>
+        <span class="label">Tutorial</span>
+        <a href="https://www.youtube.com/watch?v=Pi4Ft7M8UOU" target="_blank" rel="noopener">How to use an HDRI in Blender + Cycles </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-label="Media viewer">
+    <button class="lb-close" aria-label="Close viewer">&times;</button>
+    <button class="lb-prev" aria-label="Previous">&#10094;</button>
+
+    <img id="lb-image" class="lb-media" alt="" />
+    <div id="lb-video" class="lb-media"></div>
+
+    <button class="lb-next" aria-label="Next">&#10095;</button>
+  </div>
+
+  <script src="scripts/script.js"></script>
+</body>
+</html>
