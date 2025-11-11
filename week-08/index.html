@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Week 8 HW: P5JS Sketch - Pattern • Rhythm • Movement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 24px; color: #222; line-height: 1.6; background-color: linen;}
+    header { margin-bottom: 20px; }
+    h1 { font-size: 1.8rem; margin: 0 0 6px; }
+    .meta { color: #666; font-size: 0.95rem; }
+    .embed-wrap { 
+        position: relative; 
+        width: 100%; 
+        max-width: 960px; 
+        aspect-ratio: 4 / 3; 
+        border: 1px solid #e6e6e6; 
+        border-radius: 12px; 
+        overflow: hidden; 
+        margin: 20px auto; }
+    iframe { width: 100%; height: 100%; border: 0; }
+    section { max-width: 980px; }
+    h2 { margin-top: 28px; font-size: 1.3rem; }
+    code { background: #f6f6f6; padding: 2px 6px; border-radius: 6px; }
+    .small { color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pattern, Rhythm, Movement</h1>
+    <div class="meta">P5JS Sketch | Christina Lee</div>
+  </header>
+
+  <section aria-label="P5js Sketch Embed">
+    <div class="embed-wrap">
+      <!-- Replace the src with your p5 Fullscreen URL -->
+      <iframe
+        src="https://editor.p5js.org/ind-visual/full/2zWxKbYei"
+        title="p5.js sketch: Pattern · Rhythm · Movement"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+    <p class="small">Hover mouse over sketch to nudge margins. Press 1 and 2 to change density.</p>
+  </section>
+
+  <section aria-label="Project Notes">
+    <h2>Project Notes</h2>
+    <ul>
+      <li><strong>Focus:</strong> Tiled grid using loops, HSB color variation, and non-linear motion with <code>noise()</code> and <code>sin()</code>.</li>
+      <li><strong>Interaction controls:</strong> Press <code>1</code> and <code>2</code> to change density. Move the mouse to subtly adjust margins.</li>
+      <li><strong>Process:</strong> Watched The Coding Train and Maxim's p5JS tutorials on youtube to reinforce basic concepts. Created sketch in p5.js web editor, embedded to html and uploaded to GitHub repo.</li>
+    </ul>
+  </section>
+
+  <section aria-label="Documented Learnings">
+    <h2>Documented Learnings</h2>
+    <p>
+      While building my pattern and movement sketch, I ran into two small problems. They ultimately helped me get started and start having some fun with motion. The first was a syntax
+      mistake: I accidentally used a minus sign instead of a division symbol when calculating each cell’s width and height, which caused the program to draw one giant rectangle instead of a tiled grid. The second issue happened later when adding motion. As I added <code>sin()</code> and <code>noise()</code> functions, my shapes spun around in unexpected ways. I realized that the x and y coordinates were in the wrong spot on the canvas. I left my shape coordinates as <code>(x, y)</code> even though I had already translated the drawing
+      origin with a <code>push()</code> and <code>translate()</code>, function which made the shapes rotate around at a skewed perspective with the grid moving off the canvas.
+    </p>
+    <p>
+      Fixing this problem helped me understand which details could completely change the rhythm of a composition. When I started poking around making tiny adjustments and re-ran the sketch, the pattern started to click into place and the motion felt balanced again. This point was when it got exciting to see how different values in code directly affected visual rhythm and composition and I started to get more organic animations.
+      I'm still in early days, learning and reinforcing basic concepts of variables and functions for generative design, but I'm beginning to see how the code logic and aesthetics are connecting as I get familiar with types of code blocks and functions. Just gotta keep playing around and having fun with it.
+    </p>
+  </section>
+
+</body>
+</html>
