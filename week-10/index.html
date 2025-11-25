@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Week 9 HW: Time & Oscillation </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 24px;
+      color: #f2f2f2;
+      line-height: 1.6;
+      background-color: #111;
+    }
+    header { margin-bottom: 20px; }
+    h1 { font-size: 1.8rem; margin: 0 0 6px; }
+    .meta { color: #666; font-size: 0.95rem; }
+
+    section { max-width: 980px; }
+
+    h2 {
+      margin-top: 72px;
+      font-size: 1.3rem;
+    }
+
+    code {
+      background: #f6f6f6;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .small { color: #666; font-size: 0.9rem; }
+
+    /* Sketch container: let the canvas define the height */
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 20px 0;
+      background: #000;
+    }
+
+    #sketch-holder {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Canvas scales with width, keeps its own aspect ratio */
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* GIF gallery */
+    .gallery {
+      max-width: 980px;
+      margin-top: 12px;
+    }
+
+    .gif-block {
+      margin-bottom: 28px;
+    }
+
+    .gif-block img {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto 8px 0;
+      border: 1px solid #3a3a3a;
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+      font-size: 1rem;
+    }
+
+    .step-text {
+      font-size: 0.95rem;
+      color: #8f8f8f;
+      margin: 0;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Time &amp; Oscillation</h1>
+    <div class="meta">P5JS Sketch | Christina Lee</div>
+  </header>
+
+  <!-- Final p5.js sketch -->
+  <section aria-label="P5js Sketch Embed">
+    <div class="embed-wrap">
+      <div id="sketch-holder"></div>
+    </div>
+  </section>
+
+  <!-- Documentation Process GIFs -->
+  <section aria-label="Process Evolution" class="gallery">
+    <h2>Documentation Process</h2>
+
+    <div class="gif-block">
+      <p class="step-title">Iteration 1 – Creating the Circles</p>
+      <img src="images/01-process-circles-made.png" alt="Static row of circles on a dark background">
+      <p class="step-text">
+        Started with a simple row of evenly spaced circles with a dark background.
+      </p>
+    </div>
+
+    <div class="gif-block">
+      <p class="step-title">Iteration 2 – Sin(y) Oscillation</p>
+      <img src="images/02-circles-sin-oscillation.gif" alt="Circles moving up and down in a sine wave">
+      <p class="step-text">
+        Added motion using <code>sin()</code> to oscillate the circles up and down. All circles move to the same time variable of 1 sin wave.
+      </p>
+    </div>
+
+    <div class="gif-block">
+      <p class="step-title">Iteration 3 – Organic Wobble + Noise</p>
+      <img src="images/03-circles-sin-oscillation-x+y-noise.gif" alt="Circles drifting with noise-based motion">
+      <p class="step-text">
+        Layered Perlin noise on the x and y for a more organic feel. The noise adds soft wobbles and unique personality to each circle.
+      </p>
+    </div>
+
+    <div class="gif-block">
+      <p class="step-title">Iteration 4 – Breathing + Scale &amp; Color Gradient</p>
+      <img src="images/04-circles-breathing-color gradient.gif" alt="Circles changing size and color across the row">
+      <p class="step-text">
+        Added a “breathing” effect by oscillating each circle’s size with sine and noise. Mapped HSB color from the center circle radiating outwards.
+      </p>
+    </div>
+
+    <div class="gif-block">
+      <p class="step-title">Iteration 5 – Adding a Hero Circle + Unique Behavior</p>
+      <img src="images/05-HeroCircles-unique-timing.gif" alt="Hero circle breaking away with unique motion">
+      <p class="step-text">
+        Made the center the “hero” circle. Created a short delay using <code>millis()</code> and a time threshold, making it brea away into a more dramatic movement path with unpredictable oscillation and scale rhythms.
+      </p>
+    </div>
+
+    <div class="gif-block">
+      <p class="step-title">Iteration 6 – Hover Interaction &amp; Final Polish</p>
+      <img src="images/06-Hover-IxD.gif" alt="Hover interaction causing circles to glow and grow">
+      <p class="step-text">
+        Added interaction element to each circle. Hovering over a circle makes it bigger, brighter, and create a halo ring. Interact with the sketch at the top of the page :)
+      </p>
+    </div>
+  </section>
+
+  <script>
+    let t = 0;
+    let heroStarted = false;
+    let heroDelay = 2500; 
+    let numCircles = 14;
+    let heroIndex = Math.floor(numCircles / 2);
+
+    function setup() {
+      const cnv = createCanvas(900, 400);
+      cnv.parent('sketch-holder');
+      colorMode(HSB, 360, 100, 100, 100);
+      noStroke();
+      textFont('system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif');
+    }
+
+    function draw() {
+      background(230, 20, 5); // dark, warm background
+      t += 0.02;
+
+      let baseY = height / 2 + 20;
+      let spacing = width / (numCircles + 1);
+
+      // start hero behavior after delay
+      if (!heroStarted && millis() > heroDelay) {
+        heroStarted = true;
+      }
+
+      let centerIndex = (numCircles - 1) / 2;
+
+      // --- NORMAL CIRCLES ---
+      for (let i = 0; i < numCircles; i++) {
+        if (i === heroIndex) continue; // hero drawn separately
+
+        let baseX = spacing * (i + 1);
+
+        // POSITION MOTION
+        let yMain = baseY + sin(t + i * 0.5) * 40;
+        let yNoise = map(noise(t * 0.6 + i * 2.3), 0, 1, -12, 12);
+        let y = yMain + yNoise;
+
+        let xNoise = map(noise(t * 0.4 + i * 3.1), 0, 1, -10, 10);
+        let x = baseX + xNoise;
+
+        // SIZE OSCILLATION (breathing effect)
+        let baseSize = map(i, 0, numCircles - 1, 18, 26);
+        let breathe = sin(t * 0.7 + i * 0.2) * 3;
+        let noiseWobble = map(noise(t * 0.3 + i * 5), 0, 1, -1.5, 1.5);
+        let jitter = (frameCount % 120 === 0) ? random(-1, 1) : 0;
+        let circleSize = baseSize + breathe + noiseWobble + jitter;
+
+        // COLOR ROTATION FROM CENTER OUTWARD
+        let distFromCenter = abs(i - centerIndex);   // 0 at center, larger at edges
+        let normDist = distFromCenter / centerIndex; // 0..1
+        let baseHue = lerp(20, 220, normDist);       // warm center → cooler edges
+        let timeShift = t * 40 * (0.3 + normDist);   // edges animate color faster
+        let hue = (baseHue + timeShift) % 360;
+
+        let bright = 95;
+        if (random() < 0.01) bright = 100;           // tiny sparkle
+
+        // HOVER INTERACTION
+        let d = dist(mouseX, mouseY, x, y);
+        let isHover = d < circleSize / 2;
+
+        if (isHover) {
+          let hoverSize = circleSize * 1.4;
+          fill(hue, 80, 100, 100);
+          ellipse(x, y, hoverSize, hoverSize);
+
+          noFill();
+          stroke(hue, 80, 100, 60);
+          strokeWeight(2);
+          ellipse(x, y, hoverSize + 8, hoverSize + 8);
+          noStroke();
+        } else {
+          fill(hue, 70, bright, 100);
+          ellipse(x, y, circleSize, circleSize);
+        }
+      }
+
+      // --- HERO CIRCLE ---
+      drawHeroCircle(baseY, spacing);
+
+      // --- TOOLTIP (drawn last so it's on top) ---
+      noStroke();
+      fill(0, 0, 100, 90); // HSB: white text
+      textSize(14);
+      textAlign(CENTER, BOTTOM);
+      text("Hover over the circles to interact \u2728", width / 2, height - 10);
+    }
+
+    function drawHeroCircle(baseY, spacing) {
+      let baseX = spacing * (heroIndex + 1);
+      let heroX, heroY, circleSize, hue, sat, bri;
+
+      if (!heroStarted) {
+        // BEFORE DELAY: hero behaves like the others but slightly highlighted
+        let yMain = baseY + sin(t + heroIndex * 0.5) * 40;
+        let yNoise = map(noise(t * 0.6 + heroIndex * 2.3), 0, 1, -12, 12);
+        heroY = yMain + yNoise;
+
+        let xNoise = map(noise(t * 0.4 + heroIndex * 3.1), 0, 1, -10, 10);
+        heroX = baseX + xNoise;
+
+        circleSize = 28;
+
+        let h = 330 + sin(t * 0.3) * 15;
+        hue = (h + 360) % 360;
+        sat = 80;
+        bri = 100;
+
+      } else {
+        // AFTER DELAY: hero breaks away with independent, organic motion
+        let ySin = sin(t * 1.5) * 80;
+        let yNoise = map(noise(t * 0.3 + 50), 0, 1, -20, 20);
+        heroY = baseY + ySin + yNoise;
+
+        let xNoise = map(noise(t * 0.4 + 100), 0, 1, -80, 80);
+        let xSin = sin(t * 0.9) * 30;
+        heroX = baseX + xNoise + xSin;
+
+        // SIZE: slower and smoother pulsing
+        let slowPulse = sin(t * 0.8) * 4;
+        let noisePulse = map(noise(t * 0.2), 0, 1, -2, 2);
+        let occasionalJitter = (frameCount % 30 === 0) ? random(-1, 1) : 0;
+        circleSize = 30 + slowPulse + noisePulse + occasionalJitter;
+
+        let h = 340 + sin(t * 0.3) * 15;
+        hue = (h + 360) % 360;
+        sat = 90;
+        bri = 100;
+      }
+
+      // HOVER INTERACTION FOR HERO
+      let d = dist(mouseX, mouseY, heroX, heroY);
+      let isHover = d < circleSize / 2;
+
+      if (isHover) {
+        let hoverSize = circleSize * 1.5;
+        fill(hue, sat, 100, 100);
+        ellipse(heroX, heroY, hoverSize, hoverSize);
+
+        // brighter halo when hovered
+        noFill();
+        stroke(hue, sat, 100, 70);
+        strokeWeight(3);
+        ellipse(heroX, heroY, hoverSize + 10, hoverSize + 10);
+        noStroke();
+      } else {
+        fill(hue, sat, bri, 100);
+        ellipse(heroX, heroY, circleSize, circleSize);
+
+        if (heroStarted) {
+          // subtle glow when hero is active
+          noFill();
+          stroke(hue, sat, 100, 60);
+          strokeWeight(2);
+          ellipse(heroX, heroY, circleSize + 10, circleSize + 10);
+          noStroke();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
