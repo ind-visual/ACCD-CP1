@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Week 11 HW: Rain & Mushroom Field Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 24px;
+      color: #f2f2f2;
+      line-height: 1.6;
+      background-color: #111;
+    }
+
+    header {
+      margin-bottom: 20px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 6px;
+    }
+
+    .meta {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto 48px auto;
+    }
+
+    h2 {
+      margin-top: 72px;
+      font-size: 1.3rem;
+    }
+
+    h3 {
+      margin-top: 24px;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: #8f8f8f;
+    }
+
+    /* Sketch container for Week 11 p5js sketch */
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 20px 0;
+      background: #000;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    figure img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #3a3a3a;
+    }
+
+    figcaption {
+      font-size: 0.85rem;
+      color: #8f8f8f;
+      margin-top: 6px;
+    }
+
+    figure {
+        margin-left: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #3a3a3a;
+      margin: 32px 0;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Interactive System with UI</h1>
+    <div class="meta">P5JS Sketch | Christina Lee</div>
+  </header>
+
+  <main>
+
+    <!-- 1. SKETCH SECTION -->
+    <section aria-labelledby="sketch-title">
+      <h2 id="sketch-title">✨🍄 Collect the Mushrooms! 🍄✨</h2>
+
+      <div class="embed-wrap">
+        <div id="sketch-holder"></div>
+      </div>
+
+      <p class="tagline">
+        Idea: After a long rainy week, mushrooms began appearing all over my neighborhood. They randomly popped up in lawns, hiding along sidewalks, and growing out of the most random nooks & crannies. I was inspired and turned it into a playful system where a storm cloud roll in and mushrooms sprout up across the field. The player must collect enough mushrooms or they will take over the field.
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- SYSTEMS DIAGRAM -->
+    <section>
+      <h2>UML Systems Diagram</h2>
+
+      <figure>
+        <img src="images/UML-Diagram-01-System.png" alt="UML systems diagram">
+        <figcaption>
+          Planning out the system of the main actors & objects: Cloud, Field,
+          Mushroom, Player, UI & their relationships.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- BEHAVIOR DIAGRAM -->
+    <section>
+      <h2>Behavioral Flow Chart</h2>
+
+      <figure>
+        <img src="images/UML-Diagram-02-Behavior.png" alt="Behavior flow chart">
+        <figcaption>
+          The behavioral flow planning out the time logic of the rain, mushroom spawning, player click behavior, and various system thresholds to maintain a dynamic feedback loop.
+        </figcaption>
+      </figure>
+    </section>
+
+    <hr />
+
+    <!-- PROCESS STEPS -->
+    <section>
+      <h2>Core Steps + Challenges</h2>
+
+      <h3>1) Mapping the system</h3>
+      <p>I first mapped out the cloud, field, mushrooms, player, and UI as separate objects & actors.</p>
+
+      <h3>2) Building the environment with an Object-Oriented Programming framework</h3>
+      <p>I wanted each mushroom object to have its own unique color, size, behavior, and hit detection radius, while the Field would manage the mushrooms collectively. A maximum value threshold would signal if the mushrooms overtook the field.</p>
+
+      <h3>3) Adding interaction & UI game play</h3>
+      <p>The player clicks to collect newly spawned mushrooms between random rain intervals (with rain representing an emerging environmental property). To raise the stakes, they also need to make sure the mushrooms don't overtake the field, or they lose the game. If they collect 20 mushrooms, they're dubbed a pro mushrom forager and win the game.</p>
+
+      <h3>4) Visual & UI polish</h3>
+      <p>For a fun visual style that felt more natural, I added sine-wave animation in the rain lines, noise-driven mushroom sway. I added win/lose states at the end since it fel like a more rewarding experience for the player.</p>
+    </section>
+
+    <hr />
+
+    <!-- LEARNINGS -->
+    <section>
+      <h2>Key Learnings + Takeaways</h2>
+      <ul>
+        <p><li>It took a combination of readings, tutorials, and hands-on practice/debugging & styling to understand how OOP worked. After absorbing the theory & organizational purpose behind using classes, instanced objects, and global vs. constructor & draw values, it made smaller adjustments easier to scale and adjust towards the end. Made all that work worth it!</li></p>
+        <p><li>I had a lot of fun playing with the time values to get the randomness and squash and stretch of the mushrooms to feel "just right". It was rewarding to get a natural-feeling and organic animation.</li></p>
+        <p><li>I spend a good amount of time debugging and updating the UI messaging. I got a better understanding of where to align different UI messages & displays, added a "Collected" counter, and created true/false conditions for when the player either won or lost.</li></p>
+        <p><li>It was fun to come up with a game from a real-life observation, and combine it with my love of animation.</li></p>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="scripts/mushroom.js"></script>
+  <script src="scripts/sketch.js"></script>
+
+</body>
+</html>
