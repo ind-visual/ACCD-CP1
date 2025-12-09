@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Week 12 HW: Anything Is An Interface – Typographic Karaoke</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 24px;
+      color: #cacaca;
+      line-height: 1.6;
+      background-color: #111;
+    }
+
+    header {
+      color: #ececec;
+      margin-bottom: 20px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 6px;
+    }
+
+    .meta {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto 48px auto;
+    }
+
+    h2 {
+      border: none;
+      margin-top: 56px;
+      font-size: 1.3rem;
+    }
+
+    h3 {
+      margin-top: 24px;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    figure {
+      margin: 0 0 12px 0;
+    }
+
+    figure img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #3a3a3a;
+      display: block;
+    }
+
+    figcaption {
+      font-size: 0.85rem;
+      color: #8f8f8f;
+      margin-top: 6px;
+    }
+
+    .embed-wrap {
+      display: inline-block;      /* shrink to fit the canvas width */border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      margin: 0 0 12px 0;
+    }
+
+    canvas {
+        display:block
+    }
+    
+    ul {
+      padding-left: 20px;
+    }
+    
+    hr {
+        border: none;
+        border-top: 1px solid #3a3a3a;
+        margin: 32px 0;
+    }
+
+
+  </style>
+
+  <!-- p5 + ml5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>Anything is an Interface - Part 1</h1>
+    <div class="meta">P5JS + ML5 Sketch | Christina Lee</div>
+  </header>
+
+  <main>
+
+    <!-- STEP 1 -->
+    <section>
+      <h2>The Idea – Karaoke + Typography</h2>
+
+      <figure>
+        <img src="images/karaokeCore-2.jpg" alt="a man happily singing his sorrows away in a korean karaoke room">
+        <figcaption>My husband's happy place.</figcaption>
+      </figure>
+
+      <p>
+        I often find my husband blasting music and singing his favorite karaoke songs late into the night. Inspired by his love of karaoke, I wanted to experiment with an expressive accordingly performance-based interface combining typography & emotional intensity with a playful visual interaction.
+      </p>
+
+    </section>
+
+    <hr />
+
+    <!-- STEP 2 – SKETCH HERE -->
+    <section>
+      <h2>Initial Prototype – Expressiveness + Testing Threshold</h2>
+
+      <figure>
+        <div class="embed-wrap">
+          <!-- Your p5.js sketch will attach its canvas here -->
+          <div id="sketch-holder"></div>
+        </div>
+        <figcaption>
+          Initial prototype: facial expressiveness drives "SING" behavior, breaking up the typographic baseline, the spacing & its size.
+        </figcaption>
+      </figure>
+
+      <p>
+        Before creating my "big idea," I experimented with a prototype to explore and learn the basic features of ML5's capabilities. I experimented with the FaceMesh model, specifically testing the mouth openness and smile width ranges, combining these 2 landmark ranges into a single "expressiveness" value (0–1). This drove the animated baseline and the behavior of the word "SING" on the canvas.
+        <strong>SING</strong>.
+      </p>
+
+      <ul>
+        <li>Calm face = smoother line & minimal type movement</li>
+        <li>Medium expression = subtle distortion appears</li>
+        <li>High expression = noise tremors and baseline ripples dramatically</li>
+      </ul>
+
+      <p>
+        Next, I'll test the threshold for 3 expression values that'll show ideal interaction results for calm and extreme high/low expressions. I need to adjust the neutral "expressiveness" or add more facial landmarks, since a neutral face currently equals ~ 0.5 instead of 0. I also need to create a type of bounding box for the face coordinates so the z-axis depth doesn't overpower the x and y coordinates of the "expressivness" value. Then, I can create additional face and hand pose interactions from these baseline thresholds, and adjust accordingly.
+      </p>
+    </section>
+
+    <!-- STEP 3 -->
+    <section>
+      <h2>UV Texture Maps + Hand Gesture Ideas</h2>
+
+      <figure>
+        <img src="images/emotiveMaskSketchIdeas-01.png" alt="sketches of face texture masks">
+        <figcaption>Sketches of calm vs expressive UV masks and gesture ideas.</figcaption>
+      </figure>
+
+      <p>
+        I plan to introduce at least 2 facial UV texture states based on expressiveness levels:
+      </p>
+
+      <ul>
+        <p>A) Dreamy & Serene: soft and calm, appears at low or neutral expressive values</p>
+        <p>B) Intense & Aggressive: vibrant, energetic, appears at expressive high peaks</p>
+        <p>C) Sad & Heavy: cold, low point (a nice-to-have, depending on how things go)</p>
+      </ul>
+
+      <p>
+        These masks act as expressive mood-changing skins.  Additional hand gestures (via HandPose) would be a fun way to increase intensity or trigger typographic tremmors.
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- STEP 4 -->
+    <section>
+      <h2>Moodboard &amp; Visual Direction</h2>
+
+      <figure>
+        <img src="images/Moodboard-AnythingIsAnInterface.png" alt="A visual moodboard of expressive portraits, theatrical narratives, and kinetic typography">
+        <figcaption>Expressive portraits, emotive theater, kinetic typography.</figcaption>
+      </figure>
+
+      <p>
+        Based on my intial idea and prototype, I created a moodboard inspired by karaoke lyric screens, expressive portraiture, face mask iconography, and kinetic typography. This will set the aesthetic tone and visual direction throughout my project.
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- STEP 5 -->
+    <section>
+      <h2>Final Plan A, Plan B, Plan C</h2>
+
+      <h3>Plan A – Full Typographic Karaoke Mask System</h3>
+      <ul>
+        <li>FaceMesh expressiveness drives typography + two UV textures</li>
+        <li>2 Hand gestures that add variation and special effects</li>
+        <li>A stylized (and possibly karaoke-inspired) interface</li>
+      </ul>
+
+      <h3>Plan B – Medium Scope</h3>
+      <ul>
+        <li>Keep expressiveness-driven type and baseline</li>
+        <li>Replace UV mapping with simple graphic overlays over major facial landmarks (eyes, nose, cheeks, etc)</li>
+        <li>One additional hand gesture control</li>
+      </ul>
+
+      <h3>Plan C – Minimal Version</h3>
+      <ul>
+        <li>Face-only expressiveness control</li>
+        <li>No gestures, no UV mapping</li>
+        <li>Simple visual overlay changes for expressive highs/lows</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Your p5 sketch code should parent the canvas to 'sketch-holder' -->
+  <script src="scripts/sketch.js"></script>
+
+</body>
+</html>
