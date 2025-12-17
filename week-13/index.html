@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Anything is an Interface - Part 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Match Week-12 styling -->
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      margin: 24px;
+      color: #cacaca;
+      line-height: 1.6;
+      background-color: #111;
+    }
+
+    header {
+      color: #ececec;
+      margin-bottom: 20px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 6px;
+    }
+
+    .meta {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto 48px auto;
+    }
+
+    h2 {
+      border: none;
+      margin-top: 56px;
+      font-size: 1.3rem;
+    }
+
+    h3 {
+      margin-top: 24px;
+      margin-bottom: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    figure {
+      margin: 0 0 12px 0;
+    }
+
+    figure img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid #3a3a3a;
+      display: block;
+    }
+
+    figcaption {
+      font-size: 0.85rem;
+      color: #8f8f8f;
+      margin-top: 6px;
+    }
+
+    .embed-wrap {
+      display: inline-block;      /* shrink to fit the canvas width */
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      margin: 0 0 12px 0;
+      padding: 0;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #sketch-holder {
+        position: relative;
+        display: inline-block;
+        line-height: 0;
+        vertical-align: top;
+    }
+
+    #sketch-holder canvas {
+        display: block;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #3a3a3a;
+      margin: 32px 0;
+    }
+
+    a {
+      color: #2546c7;
+    }
+  </style>
+
+  <!-- Your chosen library versions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>Anything is an Interface - Part 2</h1>
+    <div class="meta">P5JS + ML5</div>
+  </header>
+
+  <main>
+
+    <!-- SECTION 1 -->
+    <section>
+      <h2>Final Prototype</h2>
+      🔗 Link to: <a href="https://editor.p5js.org/ind-visual/full/BjlZux4t8">ML5JS Sketch<br><br></a>
+
+      <figure>
+        <div class="embed-wrap">
+            <div id="sketch-holder"></div>
+            <div id="sketch-ui"></div>
+        </div>
+        <figcaption>
+          Press Capture (c), "Space" to calibrate your neutral baseline expression, Play with face expressiveness and a easter egg hand gesture trigger.
+        </figcaption>
+      </figure>
+
+      <p>
+        <strong>✨🎤 24/7 Karaoke-Lovers</strong><br> For my prototype, I thought how it would be a fun way to have a personal karaoke room right in your pocket. Initially inspired by my husband, I think about how much joy it would give him to have instant access to karaoke in a heartbeat. Instead of optimizing for “good singing,” like traditional karaoke experiences, I considered how Typographic Karoke creates a spontaneous, private performance that turns facial expression into a delightful interaction. The interface becomes a hand-held stage to destress, practice some favorite songs, and have fun with playful self-expression without needing a venue, a schedule, or a group.
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- SECTION 2 -->
+    <section>
+      <h2>Technical Implementation: Dialing into Expressiveness </h2>
+
+      <figure>
+        <img src="images/CalibratingExpressivenessvalues.gif"Expressiveness alt="Testing facemesh model tracking capabiilties on ML5JS">
+        <figcaption>
+          Testing facemesh model tracking capabiilties on ML5JS
+        </figcaption>
+      </figure>
+
+      <p>
+        Considering how this experience could scale, I wanted to set an overall expressiveness value. It had to be inclusive to consider a range of face types, their neutral baselines, and camera conditions. Implementing a "space" bar interaction to initial calibration setting establishes a neutral starting value (expressiveness = 0) so anyone could try this experience. By capturing a short neutral baseline, then smoothing out facial tracking points, and mapping the mouth width/heigh ranges into a personalized start value, the system becomes more flexible stable, and most importantly, social!
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- SECTION 3 -->
+    <section>
+      <h2>🎭 The Good</h2>
+
+      <figure>
+        <img src="images/FaceTextures.gif" alt="Face filter testing">
+        <figcaption>
+          Adjusting for expressive calibration.
+        </figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/PaintingUVfaceTextures.png" alt="Painting face textures in photoshop">
+        <figcaption>
+          Painting the textures in photoshop.
+        </figcaption>
+      </figure>
+
+      <p>
+        Initially, I had a lot of fun skektching and mood boarding ideas quickly, then painting the UV textures in photoshop. When I added the texture masks as expressive “skin” overlays, that's when the exprience actually felt really fun. I had a blast painting the filters and tweaking when each filter appeared/dissapeared. That really made a difference to the exprience with a clear look and playful interaction. I found myself laughing a lot by myself while testing & it was quite a bit of fun!
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- SECTION 4 -->
+    <section>
+      <h2>😡 The Bad, 🔥 The Ugly</h2>
+
+      <figure>
+        <img src="images/Rage.gif" alt="Me, crashing out">
+        <figcaption>
+          Looks cool, took forever
+        </figcaption>
+      </figure>
+
+      <p>
+        Troubleshooting the emoji flames was awful. What seemed like a simple visual choice turned into a chain reaction of font glyph
+        support issues, rendering inconsistencies, and time-consuming debugging. It was a clear reminder that delightful ideas can
+        become fragile quickly, and that sometimes the best design move is choosing a more reliable technical path so the prototype
+        can actually ship.
+      </p>
+    </section>
+
+    <hr />
+
+    <!-- SECTION 5 -->
+    <section>
+      <h2>⏳ If I Had More Time</h2>
+      <ul>
+        <li>Add 1 additional gesture-triggered effect with another “performance” trigger.</li>
+        <li>Create a third UV texture state (low valence) and tune for a third "expressiveness" value.</li>
+        <li>Improve robustness across lighting conditions, occlusion, and camera placement.</li>
+        <li>Design a lightweight onboarding sequence that teaches Capture, Pause, and Calibration in context.</li>
+        <li>Add a performance mode UI that fades controls and emphasizes the stage.</li>
+      </ul>
+    </section>
+
+    <hr />
+
+    <!-- SECTION 6 -->
+    <section>
+      <h2>💡 Learnings + Takeaways</h2>
+      <figure>
+        <img src="images/FullDemo.gif" alt="The full range of my prototype interactions">
+        <figcaption>
+          Finall prototype demo
+        </figcaption>
+      </figure>
+      
+      <ul>
+        <li>Calibration for tracking facial landmarks + smoothing the interpolation is key groundwork for stable ML-driven interactions.</li>
+        <li>Emoji-based visuals are fragile due to font glyph coverage and rendering differences.</li>
+        <li>Creating minimal yet effect start/end states like Calibrate, Capture and Pause help with a better entry point and privacy/permissions, especially when dealing with video/image data consent. No one wants to try an experience that feels clunky or invasive.</li>
+        <li>ML edge cases show up immediately with occlusion, depth clipping, and distance from camera. Good to consider for future experiences with the face mesh and hand gesture models.</li>
+        <li>Performance interfaces work best when feedback is immediate, balanced between legible/subtle delight, and rewards to increase long term engagement.</li>
+      </ul>
+    </section>
+
+    <hr />
+
+    <!-- OPTIONAL: include your diagrams on the page (already in /images) -->
+    <section>
+      <h2>✍️ Appendix Docs + References</h2>
+      
+      🔗 Link to:
+      <ul>
+        <li><a href="https://ind-visual.github.io/ACCD-CP1/week-12/index.html">"Anything is an Interface" - Part 1 Documentation page</a></li>
+        <li><a href="https://editor.p5js.org/ind-visual/full/7Qj9ZbX-x">Initial ML5JS Sketch: "Typograhic Karaoke"</a></li>
+      </ul> 
+
+      <figure>
+        <img src="https://ind-visual.github.io/ACCD-CP1/week-12/images/Moodboard-AnythingIsAnInterface.png" alt="Expressive portraits, emotive theater, kinetic typography">
+        <figcaption>Moodboard + Visual Direction</figcaption>
+      </figure><br>
+
+      <figure>
+        <img src="https://ind-visual.github.io/ACCD-CP1/week-12/images/emotiveMaskSketchIdeas-01.png" alt="Sketches of face texture masks">
+        <figcaption>Sketches of calm vs expressive UV masks and gesture ideas</figcaption>
+      </figure><br>
+
+      <figure>
+        <img src="images/final-UML-SystemDiagram.png" alt="UML system diagram">
+        <figcaption>Early UML system diagram</figcaption>
+      </figure><br>
+
+      <figure>
+        <img src="images/final-BehaviorFlowChart.png" alt="Behavior flow chart">
+        <figcaption>Early Behavior flow chart</figcaption>
+      </figure>
+    </section>
+
+  </main>
+
+  <!-- IMPORTANT: your scripts live in /scripts and depend on your asset paths -->
+  <script src="scripts/flameParticle.js"></script>
+  <script src="scripts/sketch.js"></script>
+
+</body>
+</html>
