@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>⚡️Christina Lee — Product Design Portfolio Submission</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-accent: #111111;
+      --text: #e8e8e8;
+      --muted: #9a9a9a;
+      --border: #1c1c1c;
+      --link: #f0f0f0;
+      --link-hover: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sans-serif utility for small UI text */
+    .ui-text {
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 20px 72px;
+      opacity: 0;
+      animation: pageFade 900ms ease-out forwards;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        padding: 72px 24px 96px;
+      }
+    }
+
+    .label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    header {
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 800ms ease-out forwards;
+      animation-delay: 120ms;
+    }
+
+    header .subtle-rule {
+      height: 1px;
+      width: 64px;
+      background-color: var(--border);
+      margin: 20px 0 24px;
+    }
+
+    h1 {
+      font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      line-height: 1.25;
+      font-weight: 500;
+      margin: 10px 0 10px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .descriptor {
+      font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+      max-width: 40rem;
+      color: var(--text);
+    }
+
+    .descriptor span.em {
+      font-style: italic;
+      color: #ffffff;
+    }
+
+    section {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 800ms ease-out forwards;
+    }
+
+    /* Staggered reveal for sections */
+    section:nth-of-type(1) {
+      animation-delay: 220ms;
+    }
+
+    section:nth-of-type(2) {
+      animation-delay: 320ms;
+    }
+
+    section:nth-of-type(3) {
+      animation-delay: 420ms;
+    }
+
+    .section-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      font-family: "Iowan Old Style", Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .section-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section-body {
+      display: grid;
+      gap: 16px;
+    }
+
+    /* Right column alignment tweak */
+    .section-side {
+      padding-top: 16px; /* adjust this value if you want it a hair higher/lower */
+    }
+
+    @media (min-width: 720px) {
+      .section-body {
+        grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr);
+        column-gap: 40px;
+        align-items: flex-start;
+      }
+    }
+
+    .section-copy {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .keywords {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .link-block {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    a.project-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      color: var(--link);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background-color: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(4px);
+      transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a.project-link span.chevron {
+      font-size: 0.9em;
+      transform: translateY(1px);
+    }
+
+    a.project-link:hover,
+    a.project-link:focus-visible {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.14);
+      color: var(--link-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      outline: none;
+    }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 800ms ease-out forwards;
+      animation-delay: 520ms;
+    }
+
+    footer a {
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1px;
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      border-bottom-color: rgba(255, 255, 255, 0.3);
+      outline: none;
+    }
+
+    /* Keyframes */
+
+    @keyframes pageFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Respect reduced motion preferences */
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <div class="label ui-text">misschristinalee@gmail.com · Mdes, Interaction Design</div>
+
+      <h1>Christina Lee — Product Designer</h1>
+      <p class="subtitle ui-text">[A collection of interaction design + prototyping, philosophy + strategy and systems-level research]</p>
+
+      <div class="subtle-rule"></div>
+
+      <p class="descriptor">
+        I work in the messy middle of systems thinking, in cross-disciplinary collaboration, focused on delightfully human product touchpoints. I sharpen products, services & systems into scalable and sustainable experiences for long term impact. Always appreciate new connections via email or LinkedIn to discuss design, systems, and interation. May your 2026 be kind, adventurous and rewarding. 
+        
+        <p>Thanks for stopping by!</p>
+      </p>
+
+    </header>
+
+    <!-- Nest Thermostat Dashboard Design -->
+    <section aria-labelledby="ecocue-heading">
+      <div class="section-heading">
+        <h2 id="ecocue-heading">📱 UI Design + Prototyping: Smart Energy Dashboard</h2>
+        <div class="section-meta ui-text">[GIXD-501A-01 + GIXD-501B-01] Products, Services, Systems</div>
+      </div>
+
+      <div class="section-body">
+        <div class="section-copy">
+          <p>
+            The Nest thermostat dashboard design explores how a smart home energy system can help reshape everyday habits without relying on guilt or cognitive overload.
+            The work spans service blueprints, task/interaction flows, responsive layouts, and a mobile UI with a 3D prototype and animation.
+          </p>
+        </div>
+
+        <div class="section-side">
+          <div class="keywords ui-text">
+            Interaction design · Service design · Prototyping · Blender · Animation
+          </div>
+
+          <div class="link-block">
+            <a class="project-link" href="https://docs.google.com/presentation/d/1Jxy5nNt-wzhssaBZJMz2-cenlN7Rz22suOdvaGWQR7I/edit?slide=id.g39d00c055b3_0_0#slide=id.g39d00c055b3_0_0" target="_blank" rel="noopener noreferrer">
+              <span>Mobile dashboard design </span><span class="chevron">↗</span>
+            </a>
+            <a class="project-link" href="https://www.figma.com/proto/DHhJRb4ybCH1y7i7Fjk0uj/-Christina-Lee--Final-Prototype--Smart-Energy-Dashboard?page-id=0%3A1&node-id=1-587&viewport=60%2C383%2C0.28&t=RwuI6l0aalfBFVCt-1&scaling=min-zoom&content-scaling=fixed" target="_blank" rel="noopener noreferrer">
+              <span>Figmap prototype</span><span class="chevron">↗</span>
+            </a>
+            <a class="project-link" href="https://ind-visual.github.io/ACCD-CP1/week-06/index.html" target="_blank" rel="noopener noreferrer">
+              <span>3D prototype + animation</span><span class="chevron">↗</span>
+            </a>
+            <a class="project-link" href="assets/[Christina Lee] Nest Thermostat Service Design.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Service design critique</span><span class="chevron">↗</span>
+            </a>
+            <a class="project-link" href="https://www.figma.com/board/0BAdydSMC0zx7JzAW7SQWI/Task-Analysis---Nest-Thermostat?node-id=196-914&t=TmQW8UBVqzr4fFDo-1" target="_blank" rel="noopener noreferrer">
+              <span>Service blueprint diagrams</span><span class="chevron">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emotional Infrastructure Model -->
+    <section aria-labelledby="emotion-heading">
+      <div class="section-heading">
+        <h2 id="emotion-heading">💙 Design Philosophy: Emotion = Infrastructure</h2>
+        <div class="section-meta ui-text">[GIXD-514-01] Writing for Interaction</div>
+      </div>
+
+      <div class="section-body">
+        <div class="section-copy">
+          <p>
+            A narrative exploring how emotion can be scaled as system infrastructure for digital applications and long term, sustainable product developement.
+            Through strategic framing, personal lived experience, and cross-industry research, I uncovered four core principles to design systems of care and nurture collective intelligence for greater human good.
+          </p>
+        </div>
+
+        <div class="section-side">
+          <div class="keywords ui-text">
+            Design ethos · Narrative storytelling · Public speaking
+          </div>
+
+          <div class="link-block">
+            <a class="project-link" href="assets/[Final]Emotion-As-Infrastructure.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Emotional infrastructure deck</span><span class="chevron">↗</span>
+            </a>
+            <a class="project-link" href="https://artcenter.zoom.us/rec/play/KKyS7b_x3t3I8YEFfpcAO9En4wYvGtlCtJAlIDLr9dqk5tHKZhsblrPC9-dbkZM313g1mNpdUuNL073v.PrDVoqm9Lhb-n9sk?eagerLoadZvaPages=sidemenu.billing.plan_management&accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fartcenter.zoom.us%2Frec%2Fshare%2FYnHqsVwiRVqw5CXhuRaOpsC5rPKDmO3MAZ3d3wdALvBh6D69Z5B9RtyUGugPP1q_.1FkyvCoX9AN2ka1s" target="_blank" rel="noopener noreferrer">
+              <span>Presentation recording</span><span class="chevron">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Housing & Homelessness -->
+    <section aria-labelledby="homelessness-heading">
+      <div class="section-heading">
+        <h2 id="homelessness-heading">🏠 Design Research + Synthesis: Housing and Homelessness</h2>
+        <div class="section-meta ui-text">[GIXD-502-01] Design Research & Strategy</div>
+      </div>
+
+      <div class="section-body">
+        <div class="section-copy">
+          <p>
+            A systemic investigation into the institutional and structural forces behind the wicked and complex homelessness crisis in Los Angeles.
+            Using scientific and ethnography-based methods, I mapped stakeholders, lived experiences, and macro-level root causes to frame opportunities for deep redirective change at the community level.
+          </p>
+        </div>
+
+        <div class="section-side">
+          <div class="keywords ui-text">
+            Stakeholder mapping · Analysis and research planning · Problem framing
+          </div>
+
+          <div class="link-block">
+            <a class="project-link" href="assets/[Christina Lee] Homelessness + Care as Infrastructure_FinalPreso.pdf" target="_blank" rel="noopener noreferrer">
+              <span>Housing crisis in L.A.</span><span class="chevron">↗</span>
+            </a>
+            <a class="project-link" href="https://www.figma.com/board/xijuRveN2V1EfdTcNBrr0b/fall-term-scholarship-page?node-id=0-1&t=26vsRvptKBUUfgvt-1" target="_blank" rel="noopener noreferrer">
+              <span>Stakeholder diagram</span><span class="chevron">↗</span>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="ui-text">Christina Lee · MDes, Interaction Design</div>
+      <div class="ui-text">
+        <a href="https://www.linkedin.com/in/miss-christina-lee/">linkedIn.com/in/miss-christina-lee/</a>
+      </div>
+      <div class="ui-text">
+        <a href="mailto:misschristinalee@gmail.com">misschristinalee@gmail.com</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
