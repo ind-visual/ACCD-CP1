@@ -72,16 +72,13 @@
 
   .bcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
   .bcard .kicker{font-size:11px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--sage)}
-  .bcard.k-clay .kicker{color:var(--clay)}
-  .bcard.k-sage .kicker{color:var(--sage)}
   .bcard h3{font-size:17.5px;font-weight:680;margin:6px 0 3px;letter-spacing:-.2px}
   .bcard .when{font-size:14px;font-weight:600}
   .bcard .who{font-size:13.5px;color:var(--muted);margin-top:7px;line-height:1.45}
   .bcard .come{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:600;
     color:var(--sage);background:var(--sage-soft);padding:5px 11px;border-radius:11px}
-  .bcard.k-clay .come{color:var(--clay);background:var(--clay-soft)}
 
-  /* Heidi's offer — its own moment */
+  /* Sarah's offer — its own moment */
   .offer{border-color:var(--honey);box-shadow:0 6px 20px rgba(176,125,52,.15);
     transition:transform .35s cubic-bezier(.2,.7,.3,1)}
   .offer .kicker{color:var(--honey)}
@@ -150,8 +147,32 @@
   .feat-said{margin-top:13px;padding-left:13px;border-left:2.5px solid var(--honey);
     font-size:14.5px;line-height:1.58;font-style:italic}
   .feat-when{margin-top:14px;font-size:14.5px;font-weight:650}
+  /* the card catching the light as your turn lands */
+  .feature{transition:box-shadow .6s ease, border-color .6s ease}
+  .feature.receiving{
+    border-color:var(--honey);
+    box-shadow:0 0 0 3px rgba(176,125,52,.16), 0 10px 34px rgba(176,125,52,.30);
+    animation:breathe 1.7s ease}
+  @keyframes breathe{
+    0%{box-shadow:0 8px 26px rgba(176,125,52,.14)}
+    35%{box-shadow:0 0 0 5px rgba(176,125,52,.20), 0 12px 40px rgba(176,125,52,.38)}
+    100%{box-shadow:0 0 0 3px rgba(176,125,52,.16), 0 10px 34px rgba(176,125,52,.30)}}
+
   .yours{display:block;margin-top:14px;padding:13px 14px;border-radius:16px;
-    background:var(--honey-soft);border:1px solid #e3cfac}
+    background:var(--honey-soft);border:1px solid #e3cfac;
+    opacity:0;transform:translateY(-6px);max-height:0;padding-top:0;padding-bottom:0;
+    overflow:hidden;
+    transition:opacity .5s ease .12s, transform .5s cubic-bezier(.2,.75,.3,1) .12s,
+      max-height .5s cubic-bezier(.2,.75,.3,1), padding .5s ease}
+  .yours.in{opacity:1;transform:none;max-height:180px;padding-top:13px;padding-bottom:13px}
+
+  .handoff{opacity:0;transform:translateY(-4px);
+    transition:opacity .45s ease .3s, transform .45s ease .3s}
+  .handoff.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion:reduce){
+    .feature.receiving{animation:none}
+    .yours,.handoff{transition:none;opacity:1;transform:none;max-height:none}}
   .yours-tag{display:block;font-size:11px;font-weight:700;letter-spacing:.7px;
     text-transform:uppercase;color:var(--honey)}
   .yours-when{display:block;margin-top:5px;font-size:15px;font-weight:650}
@@ -163,7 +184,7 @@
   .sheet-scrim.up{opacity:1;pointer-events:auto}
   .sheet{position:absolute;left:0;right:0;bottom:0;z-index:50;background:var(--paper);
     border-radius:30px 30px 44px 44px;padding:20px 20px 30px;
-    transform:translateY(105%);transition:transform .42s cubic-bezier(.2,.75,.3,1);
+    transform:translateY(105%);transition:transform .52s cubic-bezier(.32,.72,.24,1);
     max-height:86%;overflow-y:auto;box-shadow:0 -10px 40px rgba(0,0,0,.2)}
   .sheet.up{transform:translateY(0)}
   .grabber{width:38px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 16px}
@@ -209,7 +230,7 @@
             <span class="wv-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8Z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg></span>
             <span class="wv-name">THE VILLAGE</span>
           </div>
-          <div class="wv-from">FROM HEIDI</div>
+          <div class="wv-from">FROM SARAH</div>
           <div class="wv-signal">"I miss you! Getting a few of us together — pizza and wine, my place. Which night works?"</div>
           <div class="wv-peek">Thu, Fri or Sat · also open: pickleball Tuesday, game night Sunday</div>
           <div class="wv-tap">Tap to see &nbsp;›</div>
@@ -232,10 +253,10 @@
       <div class="board-body" id="boardBody">
 
         <div class="bcard offer" id="offerCard">
-          <div class="kicker">From Heidi</div>
+          <div class="kicker">From Sarah</div>
           <h3>Girls night</h3>
           <div class="quote">"I miss you! Getting a few of us together — pizza and wine, my place. Which night works?"</div>
-          <div class="who">Heidi, Ana, and Priya are in. Let her know either way.</div>
+          <div class="who">Sarah, Ana, and Priya are in. Let her know either way.</div>
           <div class="times" id="timeChips">
             <button class="tchip" data-t="Thursday, 7pm">Thu 7pm</button>
             <button class="tchip" data-t="Friday, 8pm">Fri 8pm</button>
@@ -266,7 +287,7 @@
 
         <div class="section-label">Regular gatherings</div>
 
-        <div class="bcard k-clay">
+        <div class="bcard">
           <div class="kicker">Every Tuesday</div>
           <h3>Pickleball at the courts</h3>
           <div class="when">Tuesdays, 6:30pm</div>
@@ -274,7 +295,7 @@
           <span class="come">Just show up</span>
         </div>
 
-        <div class="bcard k-clay">
+        <div class="bcard">
           <div class="kicker">Every other Sunday</div>
           <h3>Game night</h3>
           <div class="when">Sundays, after 8pm</div>
@@ -292,7 +313,7 @@
 
         <div class="section-label">Seasonal</div>
 
-        <div class="bcard k-sage">
+        <div class="bcard">
           <div class="kicker">Late summer</div>
           <h3>The block party</h3>
           <div class="when">Last Saturday in August</div>
@@ -300,7 +321,7 @@
           <span class="come">The whole village</span>
         </div>
 
-        <div class="bcard k-sage">
+        <div class="bcard">
           <div class="kicker">October</div>
           <h3>Apple picking, then pie</h3>
           <div class="when">A Saturday in October</div>
@@ -359,7 +380,7 @@
   let slot='Saturdays, 8–10am';
   let night='Thursday, 7pm';
 
-  /* Heidi's proposed times */
+  /* Sarah's proposed times */
   const timeChips=[...document.querySelectorAll('.tchip')];
   timeChips.forEach((chip,i)=>{
     chip.setAttribute('aria-pressed', i===0?'true':'false');
@@ -382,10 +403,29 @@
     board.classList.remove('active'); board.classList.add('ahead');
     home.classList.remove('behind'); home.classList.add('active');
   }
+  /* custom scroll — browser 'smooth' has a fixed speed, this one doesn't */
+  function glideTo(el, container, duration){
+    const start = container.scrollTop;
+    const mid = el.offsetTop - (container.clientHeight/2) + (el.offsetHeight/2);
+    const end = Math.max(0, Math.min(mid, container.scrollHeight - container.clientHeight));
+    const delta = end - start;
+    if(Math.abs(delta) < 1) return;
+    const t0 = performance.now();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce){ container.scrollTop = end; return; }
+    function step(now){
+      const p = Math.min(1, (now - t0) / duration);
+      const eased = p < .5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2)/2;  // easeInOutQuad
+      container.scrollTop = start + delta * eased;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   function raiseSheet(){ scrim.classList.add('up'); sheet.classList.add('up'); }
   function dropSheet(){ scrim.classList.remove('up'); sheet.classList.remove('up'); }
 
-  /* ---- MOMENT 1 · Heidi's offer, complete on its own ---- */
+  /* ---- MOMENT 1 · Sarah's offer, complete on its own ---- */
   function accept(note){
     offerCard.classList.add('lifting');
     const n=offerCard.querySelector('.accepted-note');
@@ -404,6 +444,7 @@
       cal.onclick=()=>{ cal.innerHTML='<span class="hb-ico">✓</span> Added to your calendar'; cal.classList.add('done'); cal.disabled=true; };
       handoff.appendChild(cal);
       offerCard.appendChild(handoff);
+      requestAnimationFrame(()=>handoff.classList.add('in'));
     },260);
   }
   function openNote(){
@@ -416,7 +457,7 @@
     const field=document.createElement('input');
     field.type='text'; field.className='note-field';
     field.placeholder='Any night but Thursday — Kai\u2019s got a thing';
-    field.setAttribute('aria-label','Add a note for Heidi');
+    field.setAttribute('aria-label','Add a note for Sarah');
 
     const row=document.createElement('div');
     row.className='note-row';
@@ -515,20 +556,29 @@
     const see=document.createElement('button');
     see.className='cta'; see.textContent='See it on the board';
     see.onclick=()=>{
+      const feat=boardBody.querySelector('.feature');
       dropSheet();
+
+      // 1 — start moving the board while the sheet is still on its way down
+      setTimeout(()=>{ glideTo(feat, boardBody, 1100); }, 240);
+
+      // 2 — the card catches the light as your turn lands on it
+      setTimeout(()=>{ feat.classList.add('receiving'); }, 1500);
+
+      // 3 — your turn expands into the card
       setTimeout(()=>{
-        const feat=boardBody.querySelector('.feature');
-        feat.classList.add('new-card');
-        // you join the end of the rotation — nobody's turn gets bumped
         feat.querySelector('.rotation').innerHTML=
           'The door moves each week. This week the Kliemanns \u00b7 next the Ruiz-Parks \u00b7 then <b>yours</b>, '
           +slot.toLowerCase()+' \u00b7 then whoever wants to take it';
+
         const mine=document.createElement('div');
         mine.className='yours';
         mine.innerHTML='<span class="yours-tag">Your turn is set</span>'
           +'<span class="yours-when">In two weeks \u00b7 '+slot+'</span>'
           +(said ? '<span class="yours-said">\u201C'+said+'\u201D</span>' : '');
         feat.insertBefore(mine, feat.querySelector('.come'));
+        requestAnimationFrame(()=>mine.classList.add('in'));
+
         if(!feat.querySelector('.handoff')){
           const handoff=document.createElement('div');
           handoff.className='handoff';
@@ -538,10 +588,13 @@
           cal.onclick=()=>{ cal.innerHTML='<span class="hb-ico">✓</span> Added to your calendar'; cal.classList.add('done'); cal.disabled=true; };
           handoff.appendChild(cal);
           feat.appendChild(handoff);
+          requestAnimationFrame(()=>handoff.classList.add('in'));
         }
         startRow.style.display='none';
-        feat.scrollIntoView({behavior:'smooth',block:'center'});
-      },320);
+      }, 1700);
+
+      // 4 — the glow settles
+      setTimeout(()=>{ feat.classList.remove('receiving'); }, 3700);
     };
     sheetFoot.appendChild(see);
   }
