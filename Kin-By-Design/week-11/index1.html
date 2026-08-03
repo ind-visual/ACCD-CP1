@@ -325,14 +325,6 @@
     text-transform:uppercase;color:var(--muted)}
   .ag-date .n{display:block;font-size:22px;font-weight:700;line-height:1.1;color:var(--ink)}
   .cal-legend{display:flex;gap:18px;margin-top:16px;padding:0 2px;font-size:13px;color:var(--muted)}
-  .cal-sync{margin-left:auto;display:inline-flex;align-items:center;gap:6px;
-    background:none;border:none;padding:0;font-family:inherit;font-size:13px;
-    font-weight:600;color:var(--muted);cursor:pointer;
-    transition:color .15s ease,opacity .15s ease}
-  .cal-sync:hover{color:var(--btn)}
-  .cal-sync svg{flex:0 0 auto}
-  .cal-sync.is-synced{color:var(--tag);cursor:default}
-  .cal-sync.is-empty{opacity:.4;cursor:default}
   .cal-legend span{display:inline-flex;align-items:center;gap:7px}
   .lg-dot{width:8px;height:8px;border-radius:50%}
   .lg-dot.solid{background:var(--btn)}
@@ -450,11 +442,7 @@
             <button class="cal-arrow" id="calNext" aria-label="Next month">›</button>
           </div>
           <div class="cal-grid" id="calGrid"></div>
-          <div class="cal-legend">
-            <span><span class="lg-dot solid"></span>Going</span>
-            <span><span class="lg-dot ring"></span>Interested</span>
-            <button class="cal-sync" id="calSync"></button>
-          </div>
+          <div class="cal-legend"><span><span class="lg-dot solid"></span>Going</span><span><span class="lg-dot ring"></span>Interested</span></div>
         </div>
         <div class="agenda" id="agenda"></div>
       </section>
@@ -720,7 +708,6 @@
     const next = (cur===which) ? 'none' : which;
     if(next==='none'){ delete states[g.id]; delete saved[g.id]; }
     else { states[g.id]=next; saved[g.id]=effectiveGathering(g,card); }
-    clearSync();
     paintButtons(g,card);
     renderWidget(); renderCalendar();
   }
@@ -1072,7 +1059,7 @@
     body.innerHTML = '<p class="quote">'+a.text+'</p>';
     const note=document.createElement('div'); note.className='offer-note show';
     note.textContent = villageNames(a.villages)
-      + (a.kind==='give' ? ' can see this, and can reach out.' : ' can see this, and can answer.');
+      + (a.kind==='give' ? ' can see this, and can reach out.' : ' can see this, and can offer to help.');
     const row=document.createElement('div'); row.className='actions';
     row.appendChild(mkBtn('Take it down','auto',()=>{ PROFILE.asks.splice(i,1); renderBulletin(); }));
     body.appendChild(note); body.appendChild(row);
@@ -1190,7 +1177,7 @@
     const closeNote=()=>{ field.remove(); row.remove(); if(card._actions) card._actions.style.display=''; };
     const send=mkBtn('Send to '+g.host,'suggested',()=>{
       closeNote();
-      states[g.id]='saved'; saved[g.id]=effectiveGathering(g,card); clearSync(); paintButtons(g,card);
+      states[g.id]='saved'; saved[g.id]=effectiveGathering(g,card); paintButtons(g,card);
       const c=card._confirm; c.className='confirm lean show'; c.textContent='Sent to '+g.host+'. Marked interested.';
       setTimeout(()=>{ c.className='confirm'; c.textContent=''; }, 2800);
       renderWidget(); renderCalendar();
@@ -1251,7 +1238,6 @@
       calGrid.appendChild(el('<div class="'+cls+'"><span class="cnum">'+n+'</span>'+dot+'</div>'));
     }
     renderAgenda();
-    renderCalSync();
   }
   function stepMonth(d){
     calMonthIndex=Math.max(0,Math.min(MONTHS.length-1,calMonthIndex+d));
@@ -1288,30 +1274,6 @@
     const maybe=all.filter(g=>states[g.id]==='saved').sort(sortByDate);
     if(going.length) agenda.appendChild(agGroup('Going', going));
     if(maybe.length) agenda.appendChild(agGroup('Interested', maybe));
-  }
-
-  /* the app hands plans off to the calendar the person already keeps,
-     rather than trying to be that calendar */
-  let calSynced=false;
-  function clearSync(){ calSynced=false; }
-  // two arrows chasing each other, the shape people read as sync
-  const ICON_SYNC='<svg width="14" height="14" viewBox="0 0 24 24" fill="none">'
-    +'<path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-6.9-4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'
-    +'<path d="M4 12a8 8 0 0 1 8-8 8 8 0 0 1 6.9 4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'
-    +'<path d="M18.9 3.4V8h-4.6M5.1 20.6V16h4.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const ICON_SYNC_DONE='<svg width="14" height="14" viewBox="0 0 24 24" fill="none">'
-    +'<circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.9"/>'
-    +'<path d="M8.3 12.2l2.6 2.6 4.8-5.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-  function renderCalSync(){
-    const host=document.getElementById('calSync'); if(!host) return;
-    const mo=MONTHS[calMonthIndex];
-    const going=Object.values(saved).filter(g=>g.cal.m===mo.key && states[g.id]==='going');
-    const empty=!going.length;
-    host.className='cal-sync'+(calSynced?' is-synced':'')+(empty?' is-empty':'');
-    host.innerHTML=(calSynced?ICON_SYNC_DONE:ICON_SYNC)
-      +'<span>'+(calSynced?'Synced':'Sync to calendar')+'</span>';
-    host.onclick=()=>{ if(calSynced||empty) return; calSynced=true; renderCalSync(); };
   }
 
   function sortByDate(a,b){
